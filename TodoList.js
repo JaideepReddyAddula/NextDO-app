@@ -1,7 +1,7 @@
 // Function to delete todo
 async function deleteTodo(id) {
     try {
-        const response = await fetch(`http://localhost:8080/api/todos/${id}`, {
+        const response = await fetch(`https://nextdo-backend.onrender.com/api/todos/${id}`, {
             method: 'DELETE'
         });
 
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const status = statusFilter.value;
 
         try {
-            let url = 'http://localhost:8080/api/todos';
+            let url = 'https://nextdo-backend.onrender.com/api/todos';
 
             // Construct query params for filtering
             const filters = [];
