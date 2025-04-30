@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NextDO</title>
+  <link rel="icon" href="circle-check-solid.png" type="image/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/svgs/solid/circle-check.svg" type="image/svg+xml">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-6">
+
+  <!-- Add Todo Button -->
+  <div class="mb-6">
+    <h1 class="text-3xl text-gray-700 font-bold">
+      <span class="me-80">
+        <i class="fa-solid fa-circle-check me-2"></i>NextDo
+      </span>
+      <span class="ms-80">
+        <a href="AddTask.html" class="bg-blue-600 text-white px-3 py-2 rounded hover:bg-blue-700 text-lg">
+          <i class="fa-solid fa-plus"></i>
+        </a>
+      </span>
+    </h1>
+  </div>
+
+  <!-- Filters Section -->
+  <div class="mb-6">
+    <label for="priorityFilter" class="mr-2">Priority:</label>
+    <select id="priorityFilter" class="p-2 rounded border border-gray-300">
+      <option value="">All</option>
+      <option value="true">Low</option>
+      <option value="false">High</option>
+    </select>
+
+    <label for="statusFilter" class="ml-6 mr-2">Status:</label>
+    <select id="statusFilter" class="p-2 rounded border border-gray-300">
+      <option value="">All</option>
+      <option value="true">Completed</option>
+      <option value="false">Pending</option>
+    </select>
+  </div>
+
+  <!-- Todo Table -->
+  <div class="w-full max-w-5xl overflow-x-auto shadow-lg rounded-lg bg-white">
+    <table class="w-full text-center table-auto">
+      <thead class="bg-blue-600 text-white">
+        <tr>
+          <th class="py-4 px-6 border">Title</th>
+          <th class="py-4 px-6 border">Description</th>
+          <th class="py-4 px-6 border">Priority</th>
+          <th class="py-4 px-6 border">Status</th>
+          <th class="py-4 px-6 border">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="tablebody" class="text-gray-700">
+        <!-- Dynamic Rows Here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script src="TodoList.js"></script>
+  <footer class="mt-10 text-center text-gray-500 text-sm">
+    &copy; 2025 NextDO. All rights reserved.
+  </footer>
+  
+</body>
+</html>

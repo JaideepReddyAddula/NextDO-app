@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Edit Todo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex justify-center items-center p-6">
+
+  <div class="w-full max-w-lg p-6 bg-white shadow-lg rounded-lg">
+    <h2 class="text-2xl font-semibold mb-6 text-center">Edit Todo</h2>
+
+    <form id="editTodoForm">
+      <div class="mb-4">
+        <label for="title" class="block text-lg font-medium mb-2">Title</label>
+        <input type="text" id="title" name="title" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+      </div>
+
+      <div class="mb-4">
+        <label for="description" class="block text-lg font-medium mb-2">Description</label>
+        <textarea id="description" name="description" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" rows="4" required></textarea>
+      </div>
+
+      <div class="mb-4">
+        <label for="priority" class="block text-lg font-medium mb-2">Priority</label>
+        <select id="priority" name="priority" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+          <option value="low">Low</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label for="status" class="block text-lg font-medium mb-2">Status</label>
+        <select id="status" name="status" class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+          <option value="pending">Pending</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
+
+      <button type="submit" class="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 text-lg">Update Todo</button>
+    </form>
+  </div>
+
+  <script>
+    // Get Todo ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const todoId = urlParams.get('todoId');
+  
+    // Fetch todo to edit
+    async function getTodo() {
+        try {
+            const response = await fetch(`http://localhost:8080/api/todos/${todoId}`);
+            const todo = await response.json();
+            console.log("Fetched Todo:", todo); // Debugging: Log the fetched todo data
+
+            // Populate form fields with todo data
+            document.getElementById('title').value = todo.title;
+            document.getElementById('description').value = todo.description;
+            document.getElementById('priority').value = todo.priority ? "low" : "high";
+            document.getElementById('status').value = todo.status ? "completed" : "pending";
+
+        } catch (error) {
+            console.error("Error fetching todo:", error);
+        }
+    }
+  
+    // Handle form submission
+    document.getElementById('editTodoForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+  
+        const updatedTodo = {
+            title: document.getElementById('title').value,
+            description: document.getElementById('description').value,
+            priority: document.getElementById('priority').value === "low",
+            status: document.getElementById('status').value === "completed"
+};
+
+
+        console.log("Updated Todo:", updatedTodo); // Debugging: Log the updated todo object
+
+        // Send PUT request to update todo
+        fetch(`http://localhost:8080/api/todos/${todoId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedTodo)
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = 'TodoList.html';  // Redirect to Todo List after successful update
+            } else {
+                alert('Error updating todo');
+            }
+        })
+        .catch(error => {
+            console.error("Error updating todo:", error);
+        });
+    });
+  
+    // Call function to load the todo on page load
+    getTodo();
+  </script>
+  
+
+</body>
+</html>
