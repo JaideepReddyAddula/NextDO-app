@@ -50,7 +50,7 @@
     // Fetch todo to edit
     async function getTodo() {
         try {
-            const response = await fetch(`http://localhost:8080/api/todos/${todoId}`);
+            const response = await fetch(`https://nextdo-backend.onrender.com/api/todos/${todoId}`);
             const todo = await response.json();
             console.log("Fetched Todo:", todo); // Debugging: Log the fetched todo data
 
@@ -80,7 +80,7 @@
         console.log("Updated Todo:", updatedTodo); // Debugging: Log the updated todo object
 
         // Send PUT request to update todo
-        fetch(`http://localhost:8080/api/todos/${todoId}`, {
+        fetch(`https://nextdo-backend.onrender.com/api/todos/${todoId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
